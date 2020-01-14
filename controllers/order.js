@@ -25,7 +25,7 @@ class Order {
       }));
       if (err) {
         console.log('client.js -- 23 > err === ', err);
-        return reject(new Error('Ocurrio un error al registrar el conductor'));
+        return reject(new Error('Ocurrio un error al registrar la orden'));
       }
 
       this.assignToDriver(order.toJSON().id);
