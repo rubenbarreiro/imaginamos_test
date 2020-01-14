@@ -1,10 +1,11 @@
 const Models = require('../models/');
 const to = require('await-to-js').default;
+const moment = require('moment-timezone');
 
 class Order {
   create(params) {
     return new Promise(async (resolve, reject) => {
-      let err, order, driver, clientAddress;
+      let err, order, clientAddress;
       [err, clientAddress] = await to(Models.ClientAddress.findOne({
         where: {
           id: params.clientAddressId
@@ -19,7 +20,9 @@ class Order {
         return reject(new Error('La direccion de envio no existe'));
       }
 
-      [err, order] = await to(Models.Order.create(params));
+      [err, order] = await to(Models.Order.create({
+        ...params
+      }));
       if (err) {
         console.log('client.js -- 23 > err === ', err);
         return reject(new Error('Ocurrio un error al registrar el conductor'));
