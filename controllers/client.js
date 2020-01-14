@@ -15,10 +15,17 @@ class Client {
     });
   }
 
-  listAddress() {
+  listAddress(params) {
     return new Promise(async (resolve, reject) => {
+      if (!params.clientId) {
+        return reject(new Error('clientId no enviado'));
+      }
+
       const [err, data] = await to(Models.ClientAddress.findAll({
-        raw: true
+        raw: true,
+        where: {
+          clientId: params.clientId
+        }
       }));
       if (err) {
         return reject(err);
@@ -33,7 +40,11 @@ class Client {
       let err, duplicated, client;
       [err, duplicated] = await to(Models.Client.findOne({
         where: {
-          email: params.email
+          $or: [{
+            email: params.email
+          }, {
+            cellphone: params.cellphone
+          }]
         }
       }));
 
@@ -42,7 +53,7 @@ class Client {
       }
 
       if (duplicated) {
-        return reject(new Error(`Ya existe un cliente con email [${params.email}]`));
+        return reject(new Error(`Ya existe un cliente con email [${params.email}] o celular [${params.cellphone}]`));
       }
 
       [err, client] = await to(Models.Client.create(params));

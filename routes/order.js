@@ -6,18 +6,17 @@ const to = require('await-to-js').default;
 /**
  * @typedef OrderCreate
  * @property {integer} clientAddressId.required - id de la direccion del cliente -
- * @property {string} deliveryDate.required - fecha de entrega - eg: 666
- * @property {Array.<Point>} Point
+ * @property {string} deliveryDate.required - fecha de entrega - eg: 2020-01-15
+ * @property {string} timePeriod.required - hora de entrega - eg: 1h a 8h
  */
 
 /**
- * Crea una orden de servicio
- * @api {post} /order/create
- * @route post /order/create 
+ * Crea una orden o pedido
+ * @route post /order/create
  * @group Ordenes
  * @param {OrderCreate.model} request.body.required - cuerpo del request en formato json
- * @returns {object} 200 - An array of user info
- * @returns {Error}  default - Unexpected error
+ * @returns {object} 200 - Registro creado
+ * @returns {Error}  default - Error inesperado
  * @produces application/json
  * @consumes application/json
  */

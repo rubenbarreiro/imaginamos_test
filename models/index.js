@@ -38,9 +38,9 @@ const operatorsAliases = {
   $col: Op.col
 };
 
-const sequelize = new Sequelize('imaginamos_test', 'coldesoft_admin', 'YjJkMTU3OGUwM2I5MDhiY2FmZmQ3N2Nj', {
+const sequelize = new Sequelize(process.env.DB_NAME, process.env.DB_USER, process.env.DB_PASSWORD, {
   operatorsAliases,
-  host: 'localhost',
+  host: process.env.DB_HOST,
   dialect: 'postgres',
   pool: {
     max: 5,

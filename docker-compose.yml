@@ -10,5 +10,19 @@ services:
       - "POSTGRES_USER=postgres"
       - "POSTGRES_PASSWORD=postgres"
       - "POSTGRES_DB=imaginamos_test"
-    # expose:
-    # - 80
+  app:
+    container_name: imaginamos-test-app
+    image: node:10.18-alpine
+    depends_on:
+      - db
+    ports:
+      - "3000:3000"
+    working_dir: /root/app
+    volumes:
+      - ./:/root/app
+    environment:
+        - "DB_USER=postgres"
+        - "DB_PASSWORD=postgres"
+        - "DB_NAME=imaginamos_test"
+        - "DB_HOST=db"
+    command: "sh -c 'npm i && npm run start:dev'"
