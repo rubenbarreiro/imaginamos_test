@@ -1,0 +1,14 @@
+version: "3.3"
+
+services:
+  db:
+    container_name: imaginamos-test-postgres
+    image: postgres:10.11-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - "POSTGRES_USER=postgres"
+      - "POSTGRES_PASSWORD=postgres"
+      - "POSTGRES_DB=imaginamos_test"
+    # expose:
+    # - 80
